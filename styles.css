@@ -1,0 +1,700 @@
+:root {
+    --sidebar-width: 250px;
+    --navbar-height: 60px;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Arial', sans-serif;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.navbar {
+    height: var(--navbar-height);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.main-content-wrapper {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.sidebar {
+    transition: transform 0.3s ease;
+    transform: fixed;
+    top: 60;
+    left: 0;
+    z-index: 1050;
+    width: var(--sidebar-width);
+    background-color: #f8f9fa;
+    padding-top: 20px;
+    border-right: 1px solid #e0e0e0;
+    height: 100%;
+}
+
+.sidebar.show {
+    transform: translateX(0);
+}
+
+.sidebar.hide {
+    transform: translateX(-100%);
+}
+
+.sidebar .nav-link {
+    color: #333;
+    padding: 12px 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #e9ecef;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateY(-1px);
+}
+
+.sidebar .nav-link.active {
+    background-color: #007bff;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.sidebar .nav-link i {
+    width: 20px;
+    text-align: center;
+}
+
+.content-area {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+    background-color: #f4f6f9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .sidebar {
+        position: fixed;
+        left: -var(--sidebar-width);
+        z-index: 1000;
+        height: 100%;
+        transition: left 0.3s ease;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+}
+
+@media (max-width: 992px) {
+    .main-content-wrapper {
+        position: relative;
+    }
+
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -280px;
+        width: 280px;
+        height: 100vh;
+        z-index: 1050;
+        background-color: #f8f9fa;
+        transition: left 0.3s ease-in-out;
+        overflow-y: auto;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .sidebar-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        z-index: 1040;
+        display: none;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.show {
+        display: block;
+        opacity: 1;
+    }
+
+    .sidebar-toggle {
+        display: block !important;
+        margin-right: 15px;
+    }
+
+    .content-area {
+        margin-left: 0;
+        width: 100%;
+    }
+}
+
+@media (min-width: 993px) {
+    .mobile-navbar {
+        display: none;
+    }
+
+    .sidebar-toggle,
+    .sidebar-close,
+    .sidebar-overlay {
+        display: none !important;
+    }
+}
+
+/* Additional styles for registration form and table */
+#registration-section {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#membersTable {
+    width: 100%;
+}
+
+#membersTable th {
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+#membersTable td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table-responsive {
+    margin-top: 15px;
+    overflow-x: auto;
+    position: relative;
+}
+
+.sticky-top {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: white !important;
+    border-bottom: 2px solid #dee2e6;
+}
+
+.table-responsive::-webkit-scrollbar {
+    width: 8px;
+}
+
+.table-responsive::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.table-responsive::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+}
+
+.table-responsive::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Additional styles for contribution section */
+#contribution-section {
+    background-color: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#contributionsTable, #contributionSummaryTable {
+    width: 100%;
+}
+
+#contributionsTable th, #contributionSummaryTable th {
+    background-color: #f8f9fa;
+    text-align: center;
+}
+
+#contributionsTable td, #contributionSummaryTable td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+/* Settings Styles */
+.dark-theme {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.dark-theme .card {
+    background-color: #2d2d2d;
+    border-color: #404040;
+}
+
+.dark-theme .form-control,
+.dark-theme .form-select {
+    background-color: #333333;
+    border-color: #404040;
+    color: #ffffff;
+}
+
+.dark-theme .nav-tabs .nav-link {
+    color: #ffffff;
+}
+
+.dark-theme .nav-tabs .nav-link.active {
+    background-color: #2d2d2d;
+    border-color: #404040;
+    color: var(--primary-color);
+}
+
+/* Logo Preview */
+#logoPreview {
+    background-color: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#logoPreview svg {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Form Control Color Input */
+.form-control-color {
+    width: 100px;
+}
+
+/* Settings sections spacing */
+.tab-pane .card {
+    margin-bottom: 1rem;
+}
+
+/* Toast Notification */
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1050;
+}
+
+.toast {
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    margin-bottom: 10px;
+    min-width: 250px;
+}
+
+.toast.success {
+    border-left: 4px solid var(--primary-color);
+}
+
+.toast.error {
+    border-left: 4px solid #dc3545;
+}
+
+/* Rating stars styling */
+.rating {
+    color: #ccc;
+    display: inline-block;
+}
+
+.rating .fas.fa-star.text-warning {
+    color: #ffc107;
+}
+
+/* Print-specific styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    .app-container {
+        padding: 0;
+    }
+    
+    .table {
+        width: 100% !important;
+        border-collapse: collapse;
+    }
+    
+    .table th,
+    .table td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: left;
+    }
+}
+
+/* Dashboard Specific Styles */
+.dashboard-card {
+    transition: transform 0.3s ease;
+    background-color: white;
+    border-left: 5px solid;
+    border-radius: 5px;
+}
+
+.dashboard-card.bg-primary {
+    border-left-color: #007bff;
+}
+
+.dashboard-card.bg-success {
+    border-left-color: #28a745;
+}
+
+.dashboard-card.bg-warning {
+    border-left-color: #ffc107;
+}
+
+.dashboard-card.bg-danger {
+    border-left-color: #dc3545;
+}
+
+.dashboard-card:hover {
+    transform: scale(1.05);
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+/* Form responsiveness */
+@media (max-width: 768px) {
+    .form-control, 
+    .form-select {
+        font-size: 16px;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+    }
+
+    .card {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Style for disabled admin buttons */
+.admin-restricted[disabled],
+[id$="ExpenditureForm"] button[type="submit"][disabled],
+[id$="ContributionForm"] button[type="submit"][disabled],
+.approve-btn[disabled],
+.edit-btn[disabled],
+.delete-btn[disabled] {
+    background-color: #6c757d !important;
+    cursor: not-allowed;
+    opacity: 0.65;
+}
+
+/* Add styles for admin-restricted buttons */
+.admin-restricted[disabled] {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+.admin-restricted[disabled]:hover {
+    background-color: inherit;
+    transform: none;
+}
+
+/* Table Search Bar */
+.table-search-bar {
+    margin-bottom: 10px;
+}
+
+.table-search-bar .form-control {
+    max-width: 300px;
+    border-radius: 20px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.table-search-bar .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+
+/* Table Search Bar */
+.table-search-bar {
+    margin-bottom: 10px;
+}
+
+#performanceTable th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+#performanceTable td {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.performance-rating {
+    display: inline-flex;
+    align-items: center;
+}
+
+.performance-rating .fas {
+    margin-right: 2px;
+}
+
+.performance-rating .fa-star {
+    color: #ccc;
+}
+
+.performance-rating .fa-star.active {
+    color: #ffc107;
+}
+
+/* Ensure all dropdown menus are properly styled */
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    margin: 0;
+    font-size: 1rem;
+    color: #212529;
+    text-align: left;
+    list-style: none;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 0.25rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+}
+
+/* Show dropdown when parent has show class */
+.dropdown.show .dropdown-menu {
+    display: block;
+}
+
+/* Properly style navbar toggler */
+.navbar-toggler {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    transition: box-shadow 0.15s ease-in-out;
+}
+
+/* Make sure modals work properly */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    display: none;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    outline: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Fix for multiple modals */
+.modal + .modal-backdrop {
+    z-index: 1041;
+}
+
+/* Add these styles to fix modal issues */
+.modal-open {
+    overflow: auto !important;
+    padding-right: 0 !important;
+}
+
+.modal-backdrop {
+    opacity: 0.5;
+}
+
+/* Ensure modal backdrop is removed properly */
+.modal-backdrop.fade.show {
+    z-index: 1040;
+}
+
+/* Fix tab navigation styling */
+.nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-top-left-radius: 0.25rem;
+    border-top-right-radius: 0.25rem;
+    margin-bottom: -1px;
+}
+
+.nav-tabs .nav-link.active {
+    color: #495057;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+
+/* Member Details Modal Styles */
+.member-details-form {
+    padding: 15px;
+}
+
+.member-details-form .form-control[readonly] {
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
+}
+
+.member-details-form h6 {
+    padding-bottom: 10px;
+    border-bottom: 2px solid #007bff;
+    margin-bottom: 20px;
+}
+
+.member-details-form .table {
+    margin-bottom: 0;
+}
+
+.member-details-form .badge {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+}
+
+.member-details-form .rating {
+    font-size: 1.2rem;
+}
+
+.modal-header img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+/* Print styles for member details */
+@media print {
+    .modal {
+        position: absolute;
+        left: 0;
+        top: 0;
+        margin: 0;
+        padding: 15px;
+        background: #fff;
+        height: auto;
+    }
+
+    .modal-dialog {
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .modal-content {
+        border: none;
+        box-shadow: none;
+    }
+
+    .btn-close,
+    .modal-footer .btn {
+        display: none;
+    }
+
+    .form-control[readonly] {
+        border: none;
+        background: transparent;
+        padding: 0;
+    }
+
+    .table {
+        border: 1px solid #dee2e6;
+    }
+
+    .table td,
+    .table th {
+        border: 1px solid #dee2e6;
+    }
+}
+
+/* Add these styles for admin-related UI */
+.admin-prompt-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1050;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#adminLogoutContainer {
+    display: flex;
+    align-items: center;
+}
+
+#adminLogoutContainer .text-muted {
+    font-size: 0.9rem;
+}
+
+.admin-restricted {
+    position: relative;
+}
+
+.admin-restricted[disabled]::after {
+    content: '🔒';
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 12px;
+    background: #dc3545;
+    color: white;
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Add styles for the totals row */
+tfoot tr {
+    font-weight: bold;
+    background-color: #f8f9fa;
+}
+
+tfoot th {
+    padding: 15px;
+    border-top: 2px solid #dee2e6;
+}
+
+/* Style for action buttons in the table */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.2rem;
+    margin: 0 2px;
+}
+
+.table td {
+    vertical-align: middle;
+}

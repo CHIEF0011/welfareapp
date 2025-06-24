@@ -1,0 +1,1414 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Kanam Welfare Association</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light mobile-navbar">
+            <div class="container-fluid">
+                <button class="btn btn-outline-primary sidebar-toggle d-lg-none">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <a class="navbar-brand" href="#">Kanam Welfare</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item" id="adminLoginContainer">
+                            <button class="btn btn-outline-primary" onclick="showAdminLogin()">
+                                <i class="fas fa-user-shield"></i> Admin Login
+                            </button>
+                        </li>
+                        <li class="nav-item d-none" id="adminLogoutContainer">
+                            <button class="btn btn-outline-danger" onclick="handleAdminLogout()">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </button>
+                            <span class="text-muted ms-2">Admin</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="sidebar-overlay d-lg-none"></div>
+
+        <div class="main-content-wrapper">
+            <div class="sidebar">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#dashboard">
+                            <i class="fas fa-tachometer-alt"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#registration">
+                            <i class="fas fa-user-plus"></i> Registration
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#approved-members">
+                            <i class="fas fa-user-check"></i> Approved Members
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contribution">
+                            <i class="fas fa-hand-holding-usd"></i> Contribution
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#performance">
+                            <i class="fas fa-chart-line"></i> Performance
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#beneficiaries">
+                            <i class="fas fa-hand-holding-heart"></i> Beneficiaries Data
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#live-members">
+                            <i class="fas fa-users"></i> Live Members
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#expenditures">
+                            <i class="fas fa-receipt"></i> Expenditures
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#settings">
+                            <i class="fas fa-cog"></i> Settings
+                        </a>
+                    </li>
+                </ul>
+                <button class="btn btn-close sidebar-close d-lg-none" aria-label="Close"></button>
+            </div>
+
+            <div class="content-area">
+                <div id="content-container">
+                    <div id="dashboard-section" class="container-fluid">
+                        <h2 class="mb-4">Dashboard</h2>
+                        
+                        <!-- Top Overview Cards -->
+                        <div class="row mb-4">
+                            <div class="col-md-3">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">Total Members</h5>
+                                            <h3 id="totalMembersCount">0</h3>
+                                        </div>
+                                        <i class="fas fa-users fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">Total Contributions</h5>
+                                            <h3 id="totalContributionsAmount">Ksh 0</h3>
+                                        </div>
+                                        <i class="fas fa-hand-holding-usd fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-warning text-dark">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">Live Members</h5>
+                                            <h3 id="liveMembersCount">0</h3>
+                                        </div>
+                                        <i class="fas fa-chart-line fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card bg-danger text-white">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">Total Expenditures</h5>
+                                            <h3 id="totalExpendituresAmount">Ksh 0</h3>
+                                        </div>
+                                        <i class="fas fa-receipt fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Charts and Graphs Row -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5>Contribution Types Distribution</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="contributionTypeChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5>Members by Sub-Location</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="subLocationMembersChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <h5>Members by Clan Distribution</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="clanAnalysisChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Activities -->
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Recent Contributions</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-striped" id="recentContributionsTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Member</th>
+                                                    <th>Type</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="recentContributionsBody">
+                                                <!-- Recent contributions will be dynamically added -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Recent Expenditures</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-striped" id="recentExpendituresTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Type</th>
+                                                    <th>Description</th>
+                                                    <th>Amount</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="recentExpendituresBody">
+                                                <!-- Recent expenditures will be dynamically added -->
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="registration-section" class="container-fluid" style="display:none;">
+                        <h2 class="mb-4">Member Registration</h2>
+                        
+                        <!-- Registration Form -->
+                        <form id="memberRegistrationForm" class="mb-4">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="fullName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Contact</label>
+                                    <input type="tel" class="form-control" id="contact" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Sub-Location</label>
+                                    <select class="form-select" id="subLocation" required>
+                                        <option value="">Select Sub-Location</option>
+                                        <option value="KOWUOR">Kowuor</option>
+                                        <option value="KOGUTA">Koguta</option>
+                                        <option value="KANYADENDA">Kanyadenda</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Clan</label>
+                                    <select class="form-select" id="clan" required>
+                                        <option value="">Select Clan</option>
+                                        <option value="KAWANDERA">KAWANDERA - GEORGE ADINA</option>
+                                        <option value="KAMUGA">KAMUGA - SYPRIANUS ODERO</option>
+                                        <option value="KAMWAMU">KAMWAMU - VALETINE OTIENO</option>
+                                        <option value="KANYADENDE">KANYADENDE - GEORGE ODERO</option>
+                                        <option value="KOWUOR_LUO">KOWUOR LUO - PETER ARUCHO</option>
+                                        <option value="KAKENDO_LOWER">KAKENDO LOWER - MILLICENT AOKO</option>
+                                        <option value="KAKENDO_UPPER">KAKENDO UPPER - PHILIP OUNDA</option>
+                                        <option value="KOSIGO">KOSIGO - DENIS OOKO</option>
+                                        <option value="KOWIWA_A">KOWIWA 'A' - TOBIAS OWUODHO</option>
+                                        <option value="KOWIWA_B">KOWIWA 'B' - BERNARD ODHIAMBO</option>
+                                        <option value="KAGENGA">KAGENGA - PHILIP OCHIEN'G</option>
+                                        <option value="KADHANJA">KADHANJA - ANTONE KAIKO</option>
+                                        <option value="KAGAK">KAGAK - JOHN OBIERO</option>
+                                        <option value="KAMILOKI">KAMILOKI - JACTONE OBUYA</option>
+                                        <option value="KONDEGA_UPPER">KONDEGA UPPER - SILPA AUMA</option>
+                                        <option value="ONDEGA_LOWER">ONDEGA LOWER - MARY PELA</option>
+                                        <option value="KOGUTU">KOGUTU - PETER OKOMBO</option>
+                                        <option value="KAKONYA">KAKONYA - GEORGE OKODE</option>
+                                        <option value="KATIENGO">KATIENGO - EVANCE NGOO</option>
+                                        <option value="KAYIEKO">KAYIEKO - THOMAS OMULO</option>
+                                        <option value="KOBONYO">KOBONYO - ISMAEL OWUOCHA</option>
+                                        <option value="KARANDA">KARANDA - MAURICE OGWAN'G</option>
+                                        <option value="KAULU">KAULU - CHARLES OTIENO</option>
+                                        <option value="KAMIYALA">KAMIYALA - MAURICE OKOTH</option>
+                                        <option value="KADHOMA">KADHOMA - JULIUS OWUODHO</option>
+                                        <option value="KANYANGO">KANYANGO - PETER RIAGA</option>
+                                        <option value="KODERO">KODERO - NELSON ODIWUOR</option>
+                                        <option value="KONGICHA">KONGICHA - BEN MBWA</option>
+                                        <option value="KASAE">KASAE - MAURICE OWUOR</option>
+                                        <option value="KOGOL_UPPER">KOGOL UPPER - SYLVESTER MBAGO</option>
+                                        <option value="KOGOL_C">KOGOL 'C' - ANTONE OGOL</option>
+                                        <option value="KOGOL_A">KOGOL 'A' - DANIEL ABICH</option>
+                                        <option value="KAMAJANGA">KAMAJANGA - MAGARET WENDO</option>
+                                        <option value="KOGWANG">KOGWANG - LUCAS ON'GONDO</option>
+                                        <option value="KOKOTO">KOKOTO - GEORGE OBUNGA</option>
+                                        <option value="KAGAN">KAGAN - RICHARD OCHIEN'G</option>
+                                        <option value="KAWEKE">KAWEKE - EVANCE ODIGU</option>
+                                        <option value="KAKEANYA">KAKEANYA - MAURICE DERA</option>
+                                        <option value="KANYAIDHO">KANYAIDHO - CHARLES NDHERE</option>
+                                        <option value="KANYANJA">KANYANJA - CHARLES OSIR</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Status</label>
+                                    <select class="form-select" id="status" required>
+                                        <option value="">Select Status</option>
+                                        <option value="ACTIVE">Active</option>
+                                        <option value="INACTIVE">Inactive</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Register Member</button>
+                        </form>
+
+                        <!-- Members Table -->
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="membersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Member ID</th>
+                                        <th>Full Name</th>
+                                        <th>Contact</th>
+                                        <th>Sub-Location</th>
+                                        <th>Clan</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="membersTableBody">
+                                    <!-- Members will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3" id="membersPrintBtn">
+                            <button class="btn btn-success" onclick="window.printTable('membersTable')">
+                                <i class="fas fa-print"></i> Print Members List
+                            </button>
+                        </div>
+                    </div>
+                    <div id="approved-members-section" class="container-fluid" style="display:none;">
+                        <h2 class="mb-4">Approved Members</h2>
+                        <div class="mb-4">
+                            <button class="btn btn-warning admin-restricted" id="moveAllToRegistrationBtn">
+                                <i class="fas fa-undo"></i> Move All to Registration
+                            </button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="approvedMembersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Member ID</th>
+                                        <th>Full Name</th>
+                                        <th>Contact</th>
+                                        <th>Sub-Location</th>
+                                        <th>Clan</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="approvedMembersTableBody">
+                                    <!-- Approved members will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-success" onclick="window.printTable('approvedMembersTable')">
+                                <i class="fas fa-print"></i> Print Approved Members
+                            </button>
+                        </div>
+                    </div>
+                    <div id="contribution-section" class="container-fluid" style="display:none;">
+                        <h2 class="mb-4">Contribution Schedule</h2>
+                        
+                        <!-- Contribution Type Tabs -->
+                        <ul class="nav nav-tabs mb-3" id="contributionTabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#saving-contributions">Saving Contributions</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#benevolence-contributions">Benevolence</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#education-contributions">Education</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#health-contributions">Health</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Saving Contributions Tab -->
+                            <div class="tab-pane fade show active" id="saving-contributions">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <h5>Add Saving Contribution</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="savingContributionForm">
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Member Name</label>
+                                                    <select class="form-select" id="savingContributionMemberName" required>
+                                                        <option value="">Select Member</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Amount</label>
+                                                    <input type="number" class="form-control" id="savingContributionAmount" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Beneficiary</label>
+                                                    <input type="text" class="form-control" id="savingContributionBeneficiary">
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Date</label>
+                                                    <input type="date" class="form-control" id="savingContributionDate" required>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Add Contribution</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5>Saving Contributions</h5>
+                                        <div>
+                                            <button class="btn btn-success me-2" id="printSavingBtn" onclick="window.printTable('savingContributionsTable')">
+                                                <i class="fas fa-print"></i> Print Saving Contributions
+                                            </button>
+                                            <button class="btn btn-primary me-2" id="importSavingBtn">Import</button>
+                                            <button class="btn btn-info" id="exportSavingBtn">Export</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="savingContributionsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cont. ID</th>
+                                                        <th>Full Name</th>
+                                                        <th>Amount</th>
+                                                        <th>Paid</th>
+                                                        <th>Balance</th>
+                                                        <th>Beneficiary</th>
+                                                        <th>Date</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="savingContributionsBody">
+                                                    <!-- Saving contributions will be dynamically added here -->
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2">Total</th>
+                                                        <th id="savingContributionsTotalAmount">Ksh 0</th>
+                                                        <th id="savingContributionsTotalPaid">Ksh 0</th>
+                                                        <th id="savingContributionsTotalBalance">Ksh 0</th>
+                                                        <th colspan="3"></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Benevolence Contributions Tab -->
+                            <div class="tab-pane fade" id="benevolence-contributions">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <h5>Add Benevolence Contribution</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="benevolenceContributionForm">
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Member Name</label>
+                                                    <select class="form-select" id="benevolenceContributionMemberName" required>
+                                                        <option value="">Select Member</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Amount</label>
+                                                    <input type="number" class="form-control" id="benevolenceContributionAmount" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Beneficiary</label>
+                                                    <input type="text" class="form-control" id="benevolenceContributionBeneficiary" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Date</label>
+                                                    <input type="date" class="form-control" id="benevolenceContributionDate" required>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Add Contribution</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5>Benevolence Contributions</h5>
+                                        <div>
+                                            <button class="btn btn-success me-2" id="printBenevolenceBtn" onclick="window.printTable('benevolenceContributionsTable')">
+                                                <i class="fas fa-print"></i> Print Benevolence Contributions
+                                            </button>
+                                            <button class="btn btn-primary me-2" id="importBenevolenceBtn">Import</button>
+                                            <button class="btn btn-info" id="exportBenevolenceBtn">Export</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="benevolenceContributionsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cont. ID</th>
+                                                        <th>Full Name</th>
+                                                        <th>Amount</th>
+                                                        <th>Paid</th>
+                                                        <th>Balance</th>
+                                                        <th>Beneficiary</th>
+                                                        <th>Date</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="benevolenceContributionsBody">
+                                                    <!-- Benevolence contributions will be dynamically added here -->
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2">Total</th>
+                                                        <th id="benevolenceContributionsTotalAmount">Ksh 0</th>
+                                                        <th id="benevolenceContributionsTotalPaid">Ksh 0</th>
+                                                        <th id="benevolenceContributionsTotalBalance">Ksh 0</th>
+                                                        <th colspan="3"></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Education Contributions Tab -->
+                            <div class="tab-pane fade" id="education-contributions">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <h5>Add Education Contribution</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="educationContributionForm">
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Member Name</label>
+                                                    <select class="form-select" id="educationContributionMemberName" required>
+                                                        <option value="">Select Member</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Amount</label>
+                                                    <input type="number" class="form-control" id="educationContributionAmount" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Date</label>
+                                                    <input type="date" class="form-control" id="educationContributionDate" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Beneficiary</label>
+                                                    <input type="text" class="form-control" id="educationContributionBeneficiary" required>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Add Contribution</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5>Education Contributions</h5>
+                                        <div>
+                                            <button class="btn btn-success me-2" id="printEducationBtn" onclick="window.printTable('educationContributionsTable')">
+                                                <i class="fas fa-print"></i> Print Education Contributions
+                                            </button>
+                                            <button class="btn btn-primary me-2" id="importEducationBtn">Import</button>
+                                            <button class="btn btn-info" id="exportEducationBtn">Export</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="educationContributionsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cont. ID</th>
+                                                        <th>Full Name</th>
+                                                        <th>Amount</th>
+                                                        <th>Paid</th>
+                                                        <th>Balance</th>
+                                                        <th>Beneficiary</th>
+                                                        <th>Date</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="educationContributionsBody">
+                                                    <!-- Education contributions will be dynamically added here -->
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2">Total</th>
+                                                        <th id="educationContributionsTotalAmount">Ksh 0</th>
+                                                        <th id="educationContributionsTotalPaid">Ksh 0</th>
+                                                        <th id="educationContributionsTotalBalance">Ksh 0</th>
+                                                        <th colspan="3"></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Health Contributions Tab -->
+                            <div class="tab-pane fade" id="health-contributions">
+                                <div class="card mb-3">
+                                    <div class="card-header">
+                                        <h5>Add Health Contribution</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="healthContributionForm">
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Member Name</label>
+                                                    <select class="form-select" id="healthContributionMemberName" required>
+                                                        <option value="">Select Member</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Amount</label>
+                                                    <input type="number" class="form-control" id="healthContributionAmount" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Date</label>
+                                                    <input type="date" class="form-control" id="healthContributionDate" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Beneficiary</label>
+                                                    <input type="text" class="form-control" id="healthContributionBeneficiary" required>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Add Contribution</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="card">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5>Health Contributions</h5>
+                                        <div>
+                                            <button class="btn btn-success me-2" id="printHealthBtn" onclick="window.printTable('healthContributionsTable')">
+                                                <i class="fas fa-print"></i> Print Health Contributions
+                                            </button>
+                                            <button class="btn btn-primary me-2" id="importHealthBtn">Import</button>
+                                            <button class="btn btn-info" id="exportHealthBtn">Export</button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="healthContributionsTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cont. ID</th>
+                                                        <th>Full Name</th>
+                                                        <th>Amount</th>
+                                                        <th>Paid</th>
+                                                        <th>Balance</th>
+                                                        <th>Beneficiary</th>
+                                                        <th>Date</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="healthContributionsBody">
+                                                    <!-- Health contributions will be dynamically added here -->
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2">Total</th>
+                                                        <th id="healthContributionsTotalAmount">Ksh 0</th>
+                                                        <th id="healthContributionsTotalPaid">Ksh 0</th>
+                                                        <th id="healthContributionsTotalBalance">Ksh 0</th>
+                                                        <th colspan="3"></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="performance-section" class="container-fluid" style="display:none;">
+                        <h2 class="mb-4">Member Performance</h2>
+                        
+                        <!-- Add Beneficiary Reference Table Section -->
+                        <div class="card mb-4">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5>Beneficiary Reference Data</h5>
+                                <div>
+                                    <button class="btn btn-success me-2" onclick="window.printTable('beneficiaryReferenceTable')">
+                                        <i class="fas fa-print"></i> Print Reference
+                                    </button>
+                                    <button class="btn btn-primary" onclick="exportBeneficiaryData()">
+                                        <i class="fas fa-download"></i> Export Data
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="beneficiaryReferenceTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Beneficiary Name</th>
+                                                <th>Total Amount Received</th>
+                                                <th>Contributors Count</th>
+                                                <th>Last Contribution</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="beneficiaryReferenceBody">
+                                            <!-- Beneficiary data will be dynamically added here -->
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Total</th>
+                                                <th id="totalBeneficiaryAmount">Ksh 0</th>
+                                                <th colspan="3"></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5>Benevolence Contribution Performance</h5>
+                                <div>
+                                    <button class="btn btn-success me-2" id="printPerformanceBtn">
+                                        <i class="fas fa-print"></i> Print Performance
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-hover" id="performanceTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Member ID</th>
+                                                <th>Full Name</th>
+                                                <th>Total Benevolence Contributions</th>
+                                                <th>Unique Beneficiaries</th>
+                                                <th>Performance Rating</th>
+                                                <th>Details</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="performanceTableBody">
+                                            <!-- Performance data will be dynamically added here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card mt-4">
+                            <div class="card-header">
+                                <h5>Beneficiary Performance Breakdown</h5>
+                            </div>
+                            <div class="card-body">
+                                <canvas id="beneficiaryPerformanceChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="beneficiaries-section" class="container-fluid" style="display:none;">
+                        <h2 class="mb-4">Beneficiaries Data Analysis</h2>
+                        
+                        <!-- Overview Cards -->
+                        <div class="row mb-4">
+                            <div class="col-md-4">
+                                <div class="card bg-primary text-white">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">Total Beneficiaries</h5>
+                                            <h3 id="totalBeneficiariesCount">0</h3>
+                                        </div>
+                                        <i class="fas fa-users fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-success text-white">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">Total Amount Distributed</h5>
+                                            <h3 id="totalAmountDistributed">Ksh 0</h3>
+                                        </div>
+                                        <i class="fas fa-money-bill-wave fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-info text-white">
+                                    <div class="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 class="card-title">Average Contribution</h5>
+                                            <h3 id="averageContribution">Ksh 0</h3>
+                                        </div>
+                                        <i class="fas fa-chart-line fa-2x"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Beneficiaries List -->
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5>Beneficiaries List</h5>
+                                <div>
+                                    <button class="btn btn-success me-2" onclick="window.printTable('beneficiariesTable')">
+                                        <i class="fas fa-print"></i> Print List
+                                    </button>
+                                    <button class="btn btn-primary me-2" onclick="exportBeneficiariesData()">
+                                        <i class="fas fa-download"></i> Export Data
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="beneficiariesTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Beneficiary Name</th>
+                                                <th>Total Amount Received</th>
+                                                <th>Contributors Count</th>
+                                                <th>Last Contribution</th>
+                                                <th>Category</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="beneficiariesTableBody">
+                                            <!-- Beneficiaries will be dynamically added here -->
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Total</th>
+                                                <th id="totalBeneficiaryAmount">Ksh 0</th>
+                                                <th colspan="4"></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contribution Distribution Chart -->
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Contribution Distribution by Type</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="beneficiaryTypeDistributionChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5>Monthly Contribution Trends</h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <canvas id="monthlyContributionTrendsChart"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="live-members-section" class="container-fluid" style="display:none;">
+                        <h2 class="mb-4">Live Members</h2>
+                        <p>Members with a rating of 5 stars and have contributed consistently are considered Live Members.</p>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover" id="liveMembersTable">
+                                <thead>
+                                    <tr>
+                                        <th>Member ID</th>
+                                        <th>Full Name</th>
+                                        <th>Contact</th>
+                                        <th>Sub-Location</th>
+                                        <th>Clan</th>
+                                        <th>Consecutive Contributions</th>
+                                        <th>Rating</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="liveMembersTableBody">
+                                    <!-- Live members will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="mt-3">
+                            <button class="btn btn-success" onclick="window.printTable('liveMembersTable')">
+                                <i class="fas fa-print"></i> Print Live Members
+                            </button>
+                        </div>
+                    </div>
+                    <div id="expenditures-section" class="container-fluid" style="display:none;">
+                        <h2 class="mb-4">Expenditures</h2>
+                        
+                        <!-- Expenditure Type Tabs -->
+                        <ul class="nav nav-tabs mb-3" id="expenditureTabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#official-expenditures">Official Expenditures</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#general-expenditures">General Expenditures</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Official Expenditures Tab -->
+                            <div class="tab-pane fade show active" id="official-expenditures">
+                                <div class="card mb-3">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5>Add Official Expenditure</h5>
+                                        <div>
+                                            <button class="btn btn-success me-2" id="printOfficialExpendituresBtn">
+                                                <i class="fas fa-print"></i> Print
+                                            </button>
+                                            <button class="btn btn-primary me-2" id="importOfficialExpendituresBtn">
+                                                <i class="fas fa-upload"></i> Import
+                                            </button>
+                                            <button class="btn btn-info" id="exportOfficialExpendituresBtn">
+                                                <i class="fas fa-download"></i> Export
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="officialExpenditureForm">
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Expenditure Type</label>
+                                                    <select class="form-select" id="officialExpenditureType" required>
+                                                        <option value="">Select Type</option>
+                                                        <option value="MEETING_COSTS">Meeting Costs</option>
+                                                        <option value="ADMIN_EXPENSES">Administrative Expenses</option>
+                                                        <option value="LEGAL_FEES">Legal Fees</option>
+                                                        <option value="OTHER">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Amount</label>
+                                                    <input type="number" class="form-control" id="officialExpenditureAmount" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Description</label>
+                                                    <input type="text" class="form-control" id="officialExpenditureDescription" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Date</label>
+                                                    <input type="date" class="form-control" id="officialExpenditureDate" required>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Add Expenditure</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="officialExpendituresTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Exp. ID</th>
+                                                        <th>Type</th>
+                                                        <th>Amount</th>
+                                                        <th>Description</th>
+                                                        <th>Date</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="officialExpendituresBody">
+                                                    <!-- Official expenditures will be dynamically added here -->
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2">Total</th>
+                                                        <th id="officialExpendituresTotalAmount">Ksh 0</th>
+                                                        <th colspan="3"></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- General Expenditures Tab -->
+                            <div class="tab-pane fade" id="general-expenditures">
+                                <div class="card mb-3">
+                                    <div class="card-header d-flex justify-content-between align-items-center">
+                                        <h5>Add General Expenditure</h5>
+                                        <div>
+                                            <button class="btn btn-success me-2" id="printGeneralExpendituresBtn">
+                                                <i class="fas fa-print"></i> Print
+                                            </button>
+                                            <button class="btn btn-primary me-2" id="importGeneralExpendituresBtn">
+                                                <i class="fas fa-upload"></i> Import
+                                            </button>
+                                            <button class="btn btn-info" id="exportGeneralExpendituresBtn">
+                                                <i class="fas fa-download"></i> Export
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="generalExpenditureForm">
+                                            <div class="row">
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Expenditure Type</label>
+                                                    <select class="form-select" id="generalExpenditureType" required>
+                                                        <option value="">Select Type</option>
+                                                        <option value="COMMUNITY_SUPPORT">Community Support</option>
+                                                        <option value="WELFARE_PROGRAMS">Welfare Programs</option>
+                                                        <option value="EMERGENCY_FUND">Emergency Fund</option>
+                                                        <option value="OTHER">Other</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Amount</label>
+                                                    <input type="number" class="form-control" id="generalExpenditureAmount" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Description</label>
+                                                    <input type="text" class="form-control" id="generalExpenditureDescription" required>
+                                                </div>
+                                                <div class="col-md-4 mb-3">
+                                                    <label class="form-label">Date</label>
+                                                    <input type="date" class="form-control" id="generalExpenditureDate" required>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Add Expenditure</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped table-hover" id="generalExpendituresTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Exp. ID</th>
+                                                        <th>Type</th>
+                                                        <th>Amount</th>
+                                                        <th>Description</th>
+                                                        <th>Date</th>
+                                                        <th>Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="generalExpendituresBody">
+                                                    <!-- General expenditures will be dynamically added here -->
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th colspan="2">Total</th>
+                                                        <th id="generalExpendituresTotalAmount">Ksh 0</th>
+                                                        <th colspan="3"></th>
+                                                    </tr>
+                                                </tfoot>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="settings-section" class="container-fluid">
+                        <h2 class="mb-4">Settings</h2>
+                        
+                        <!-- Settings Tabs -->
+                        <ul class="nav nav-tabs mb-3" id="settingsTabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="tab" href="#organization-settings">Organization</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#appearance-settings">Appearance</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#contribution-settings">Contribution</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#notification-settings">Notifications</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="tab" href="#data-settings">Data Management</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+                            <!-- Organization Settings -->
+                            <div class="tab-pane fade show active" id="organization-settings">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="organizationSettingsForm">
+                                            <div class="mb-3">
+                                                <label class="form-label">Organization Name</label>
+                                                <input type="text" class="form-control" id="orgName" value="Kanam Welfare Association">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Address</label>
+                                                <textarea class="form-control" id="orgAddress" rows="3"></textarea>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Logo</label>
+                                                <div class="d-flex align-items-center gap-3">
+                                                    <div id="logoPreview" class="border rounded p-2" style="width: 100px; height: 100px;">
+                                                        <svg width="100%" height="100%" viewBox="0 0 100 100">
+                                                            <text x="50%" y="50%" text-anchor="middle" dy=".3em">KW</text>
+                                                        </svg>
+                                                    </div>
+                                                    <input type="file" class="form-control" id="logoUpload" accept="image/*">
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Save Organization Settings</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Appearance Settings -->
+                            <div class="tab-pane fade" id="appearance-settings">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="appearanceSettingsForm">
+                                            <div class="mb-3">
+                                                <label class="form-label">Theme</label>
+                                                <select class="form-select" id="themeSelect">
+                                                    <option value="light">Light</option>
+                                                    <option value="dark">Dark</option>
+                                                    <option value="custom">Custom</option>
+                                                </select>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Primary Color</label>
+                                                <input type="color" class="form-control form-control-color" id="primaryColor" value="#007bff">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Secondary Color</label>
+                                                <input type="color" class="form-control form-control-color" id="secondaryColor" value="#6c757d">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Save Appearance Settings</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contribution Settings -->
+                            <div class="tab-pane fade" id="contribution-settings">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="contributionSettingsForm">
+                                            <div class="mb-3">
+                                                <label class="form-label">Minimum Contribution Amount</label>
+                                                <input type="number" class="form-control" id="minContribution" value="200">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Maximum Contribution Amount</label>
+                                                <input type="number" class="form-control" id="maxContribution" value="10000">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Required Consecutive Contributions for Live Member Status</label>
+                                                <input type="number" class="form-control" id="requiredContributions" value="3">
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Save Contribution Settings</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Notification Settings -->
+                            <div class="tab-pane fade" id="notification-settings">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <form id="notificationSettingsForm">
+                                            <div class="mb-3">
+                                                <h5>Email Notifications</h5>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="newMemberNotif" checked>
+                                                    <label class="form-check-label">New Member Registration</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="contributionNotif" checked>
+                                                    <label class="form-check-label">Contribution Updates</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="memberStatusNotif" checked>
+                                                    <label class="form-check-label">Member Status Changes</label>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <h5>SMS Notifications</h5>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="smsNewMember">
+                                                    <label class="form-check-label">New Member Registration</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="smsContribution">
+                                                    <label class="form-check-label">Contribution Updates</label>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Save Notification Settings</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Data Management Settings -->
+                            <div class="tab-pane fade" id="data-settings">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="mb-4">
+                                            <h5>Backup and Restore</h5>
+                                            <button class="btn btn-primary me-2" id="backupDataBtn">
+                                                <i class="fas fa-download"></i> Backup Data
+                                            </button>
+                                            <button class="btn btn-warning me-2" id="restoreDataBtn">
+                                                <i class="fas fa-upload"></i> Restore Data
+                                            </button>
+                                            <input type="file" id="restoreFileInput" accept=".json" style="display: none;">
+                                        </div>
+                                        <div class="mb-4">
+                                            <h5>Reset Data</h5>
+                                            <button class="btn btn-danger" id="resetDataBtn">
+                                                <i class="fas fa-trash"></i> Reset All Data
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Registration Modal -->
+    <div class="modal fade" id="adminRegistrationModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Admin Registration</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adminRegistrationForm">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="adminFullName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="adminUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="adminPassword" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Confirm Password</label>
+                            <input type="password" class="form-control" id="adminConfirmPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register Admin</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div class="modal fade" id="adminLoginModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Admin Login</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="adminLoginForm">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="loginUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <p class="mt-3">
+                            Don't have an admin account? 
+                            <a href="#" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#adminRegistrationModal">
+                                Register here
+                            </a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Prompt Modal -->
+    <div class="modal fade" id="adminPromptModal" tabindex="-1" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Admin Authentication Required</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>This action requires admin privileges. Please log in to continue.</p>
+                    <form id="adminPromptForm">
+                        <div class="mb-3">
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="promptUsername" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="promptPassword" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+    <script>
+        window.printTable = function(tableId) {
+            try {
+                const originalContents = document.body.innerHTML;
+                const printContents = document.getElementById(tableId).outerHTML;
+                const printHeader = `
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <h2>Kanam Welfare Association</h2>
+                        <p>Community Report - ${tableId.replace('Table', '').replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase())}</p>
+                        <p>Date: ${new Date().toLocaleDateString()}</p>
+                    </div>
+                `;
+
+                document.body.innerHTML = printHeader + printContents;
+                window.print();
+                document.body.innerHTML = originalContents;
+                location.reload();
+            } catch (error) {
+                console.error('Print error:', error);
+                alert('Error printing table');
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize tooltips
+            var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+            tooltipTriggerList.forEach(function(tooltipTriggerEl) {
+                new bootstrap.Tooltip(tooltipTriggerEl);
+            });
+
+            // Initialize popovers
+            var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'));
+            popoverTriggerList.forEach(function(popoverTriggerEl) {
+                new bootstrap.Popover(popoverTriggerEl);
+            });
+
+            // Initialize dropdowns
+            var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+            dropdownElementList.forEach(function(dropdownToggleEl) {
+                new bootstrap.Dropdown(dropdownToggleEl);
+            });
+
+            // Initialize modals
+            var modalElementList = [].slice.call(document.querySelectorAll('.modal'));
+            modalElementList.forEach(function(modalEl) {
+                new bootstrap.Modal(modalEl);
+            });
+
+            // Initialize collapse elements
+            var collapseElementList = [].slice.call(document.querySelectorAll('.collapse'));
+            collapseElementList.forEach(function(collapseEl) {
+                new bootstrap.Collapse(collapseEl, {
+                    toggle: false
+                });
+            });
+
+            // Fix modal backdrop issues
+            document.querySelectorAll('.modal').forEach(modalEl => {
+                modalEl.addEventListener('hidden.bs.modal', function() {
+                    // Remove any lingering backdrop
+                    const backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                    // Remove modal-open class from body
+                    document.body.classList.remove('modal-open');
+                    // Remove inline styles from body
+                    document.body.removeAttribute('style');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
